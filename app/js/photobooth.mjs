@@ -21,14 +21,13 @@ export class Photobooth {
   }
 
   initCamera() {
-    this.width = 320;
+    this.width = 400;
     this.height = 0;
 
     this.streaming = false;
 
-    this.video = document.getElementById('video');
-    this.canvas = document.getElementById('canvas');
-    this.photo = document.getElementById('photo');
+    this.video = this.root.querySelector('#video');
+    this.canvas = this.root.querySelector('#canvas');
 
     navigator.mediaDevices.getUserMedia({ video: true, audio: false })
       .then((stream) => {
@@ -55,16 +54,17 @@ export class Photobooth {
       }
     }, false);
 
-    this.clear()
+    // this.clear()
   }
 
   clear() {
-    this.ctx = this.canvas.getContext('2d');
-    this.ctx.fillStyle = "#AAA";
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    // this.ctx = this.canvas.getContext('2d');
+    // this.ctx.fillStyle = "#AAA";
+    // this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-    var data = this.canvas.toDataURL('image/png');
-    this.photo.setAttribute('src', data);
+    // var data = this.canvas.toDataURL('image/png');
+    // this._gallery.clear(data)
+    this._gallery.clear()
   }
 
   _shot() {
@@ -80,16 +80,23 @@ export class Photobooth {
         this.ctx.drawImage(this.video, 0, 0, this.width, this.height);
 
         var data = this.canvas.toDataURL('image/png');
-        this.photo.setAttribute('src', data);
-      } else {
-        this.clear();
+
+        this._gallery.addPicture(data)
+
       }
 
     }, this.delay)
   }
 
   burstShot() {
-    // 3 photos (interval)
+    this._gallery.addCard()
+    let startTime = Date.now();
+    let intervalId = setInterval(() => {
+      let timePassed = Date.now() - startTime;
+      if (timePassed > 3000)
+        clearInterval(intervalId)
+      this.shot();
+    }, 1000)
   }
 
   setDelay(delay) {

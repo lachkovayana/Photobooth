@@ -16,8 +16,8 @@
 
   <div id="photobooth">
     <div class="camera">
-      <!-- <video width="480">Video stream not available.</video> -->
-      <video id="video">Video stream not available.</video>
+      <video id="video" width="480">Video stream not available.</video>
+      <!-- <video id="video">Video stream not available.</video> -->
       <form onsubmit="return false">
         <input type="checkbox" id="voice_control" class="voice-control">
         <label for="voice_control"></label>
@@ -28,21 +28,11 @@
       </form>
     </div>
 
-    <!-- <div class="camera">
-      <video id="video">Video stream not available.</video>
-      <button id="startbutton">Take photo</button>
-    </div> -->
-    <!-- <canvas id="canvas">
-      <div class="output">
-        <img id="photo" alt="The screen capture will appear in this box.">
-      </div>
-    </canvas> -->
-
     <canvas id="canvas"></canvas>
 
     <div class="gallery">
       <img id="photo" width="240" height="180">
-      <template>
+      <template id="template">
         <div class="card">
           <img width="240" height="180">
           <img width="240" height="180">

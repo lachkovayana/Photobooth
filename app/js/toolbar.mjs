@@ -22,7 +22,6 @@ export class Toolbar {
     this.shotBtn.onclick = () => { this._setDelay(); this._shot() }
     this.burstShotBtn.onclick = () => { this._setDelay(); this._burstShot() }
     this.clearBtn.onclick = () => { this._clear() }
-
   }
 
   _onFormSubmit(event) {
