@@ -6,15 +6,27 @@ export class Toolbar {
   delayInput;
 
   constructor(app, rootElement) {
+    this.app = app;
+    this.root = rootElement;
+
+
+    this.delayInput = this.root.querySelector('[name=delay]');
+    this.shotBtn = this.root.querySelector('[name=shot]');
+    this.burstShotBtn = this.root.querySelector('[name=burst_shot]');
+    this.clearBtn = this.root.querySelector('[name=clear]');
     this.bindListeners();
+
   }
 
   bindListeners() {
-    
+    this.shotBtn.onclick = () => { this._setDelay(); this._shot() }
+    this.burstShotBtn.onclick = () => { this._setDelay(); this._burstShot() }
+    this.clearBtn.onclick = () => { this._clear() }
+
   }
 
-  _onFormSubmit(event) {    
-    
+  _onFormSubmit(event) {
+
   }
 
   executeCommand(command) {
@@ -34,7 +46,7 @@ export class Toolbar {
   }
 
   _setDelay() {
-    this.app.setDelay(this.delayInput.value);
+    this.app.setDelay(parseInt(this.delayInput.value*1000));
   }
 
 }

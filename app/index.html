@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -8,35 +9,49 @@
   <link rel='stylesheet' type='text/css' media='screen' href='css/main.css'>
   <script type="module" src='js/main.mjs'></script>
 </head>
+
 <body>
   <h1>ШИФТ</h1>
   <h2>Задание 2</h2>
-  
+
   <div id="photobooth">
     <div class="camera">
-      <video width="480">Video stream not available.</video>
+      <!-- <video width="480">Video stream not available.</video> -->
+      <video id="video">Video stream not available.</video>
       <form onsubmit="return false">
         <input type="checkbox" id="voice_control" class="voice-control">
         <label for="voice_control"></label>
         <label>Задержка <input name="delay" type="number" value="0"> сек</label>
-        <button name="shot">Снимок!</button> 
+        <button name="shot">Снимок!</button>
         <button name="burst_shot">Серия снимков</button>
-        <button name="clear">Сбросить карточки</button> 
+        <button name="clear">Сбросить карточки</button>
       </form>
-    </div>    
+    </div>
 
-    <canvas></canvas>
+    <!-- <div class="camera">
+      <video id="video">Video stream not available.</video>
+      <button id="startbutton">Take photo</button>
+    </div> -->
+    <!-- <canvas id="canvas">
+      <div class="output">
+        <img id="photo" alt="The screen capture will appear in this box.">
+      </div>
+    </canvas> -->
+
+    <canvas id="canvas"></canvas>
 
     <div class="gallery">
+      <img id="photo" width="240" height="180">
       <template>
         <div class="card">
-          <img width="240" height="180"> 
-          <img width="240" height="180"> 
-          <img width="240" height="180"> 
+          <img width="240" height="180">
+          <img width="240" height="180">
+          <img width="240" height="180">
         </div>
       </template>
-    </div>  
+    </div>
   </div>
-  
+
 </body>
+
 </html>
