@@ -17,7 +17,6 @@ export class Photobooth {
     this._gallery = new Gallery(this.root.querySelector('.gallery'));
 
     this.initCamera();
-
   }
 
   initCamera() {
@@ -73,7 +72,6 @@ export class Photobooth {
   }
 
   setDelay(delay) {
-    console.log(delay);
     this.delay = delay;
   }
 }
