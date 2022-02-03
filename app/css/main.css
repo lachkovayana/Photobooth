@@ -1,5 +1,7 @@
 *, *:before, *:after {
   box-sizing: inherit;
+  font-family:'Times New Roman', Times, serif;
+
 }
 
 html {
@@ -18,40 +20,54 @@ h1, h2 {
 #photobooth {
   display: flex;
   justify-content: center;
-  flex-direction: column;    
+  flex-direction: column;
 }
 
-canvas { display: none; }
+canvas {
+  display: none;
+}
 
 .camera {
   display: flex;
   justify-content: center;
-  flex-direction: row;    
+  flex-direction: row;
 }
 
-.camera > * {
+.camera>* {
   margin: 1rem;
 }
 
 form {
   display: flex;
-  justify-content: center;
-  flex-direction: column;    
+  justify-content: space-between;
+  flex-direction: column;
 }
 
-form > * {
+form>* {
   margin-top: 0.5rem;
 }
 
-.voice-control { display: none; }
-.voice-control + label {
-  background-image: url('../assets/speech.png'); 
+#buttons-group {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+button{
+  margin-top: 7px;
+  font-size: 16px;
+}
+.voice-control {
+  display: none;
+}
+
+.voice-control+label {
+  background-image: url('../assets/speech.png');
   width: 2rem;
   height: 2rem;
   align-self: center;
 }
 
-.voice-control:checked + label {
+.voice-control:checked+label {
   animation: blink 1.5s ease-in-out infinite;
 }
 
@@ -59,6 +75,10 @@ form > * {
   50% {
     opacity: 0;
   }
+}
+
+video {
+  border: 5px solid #673ab7;
 }
 
 .gallery {
@@ -77,10 +97,33 @@ form > * {
   margin: 1rem 5rem;
   padding: 1rem;
   width: 860px;
+
 }
 
 img {
   margin-left: 1rem;
   border: solid 5px wheat;
   border-radius: 5px;
+}
+
+
+#tryAgain, #willDo, #text {
+  font-size: 20px;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+#text {
+  display: block;
+}
+
+#tryAgain {
+  color: red;
+  visibility: hidden;
+}
+
+#willDo {
+  color: rgb(7, 211, 0);
+  visibility: hidden;
 }

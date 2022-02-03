@@ -17,14 +17,21 @@
   <div id="photobooth">
     <div class="camera">
       <video width="480" id="video">Video stream not available.</video>
-      <!-- <form onsubmit="return false"> -->
-      <form >
-        <input type="checkbox" id="voice_control" class="voice-control">
-        <label for="voice_control"></label>
-        <label>Задержка <input name="delay" type="number" value="0"> сек</label>
-        <button name="shot">Снимок!</button>
-        <button name="burst_shot">Серия снимков</button>
-        <button name="clear">Сбросить карточки</button>
+      <form onsubmit="return false">
+        <!-- <form > -->
+        <div class="messages-for-user">
+          <p id="text"></p>
+          <p id="willDo">Will do!</p>
+          <p id="tryAgain">But this isn't a command... <br> Try again, please!</p>
+        </div>
+        <div id="buttons-group">
+          <input type="checkbox" id="voice_control" class="voice-control">
+          <label for="voice_control"></label>
+          <label>Задержка <input name="delay" type="number" value="0"> сек</label>
+          <button name="shot">Снимок!</button>
+          <button name="burst_shot">Серия снимков</button>
+          <button name="clear">Сбросить карточки</button>
+        </div>
       </form>
     </div>
 

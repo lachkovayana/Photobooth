@@ -4,61 +4,59 @@ export class VoiceControl {
   commandsMap;
   commandHandler;
 
-  //mine 
-  transcript;
-
   constructor(rootElement, commandsMap, commandHandler) {
     this.root = rootElement;
     this.commandHandler = commandHandler;
     this.commandsMap = commandsMap;
+
     this.initRecognition()
     this.bindEventHandles()
   }
 
   bindEventHandles() {
-    // remove after
-    this.recognition.addEventListener("start", () => {
-      console.log("start");
-      this.counter = 0;
-    })
 
+    this.recognition.addEventListener("start", () => {
+      this.commandNum = 0;
+    })
 
     this.recognition.addEventListener("result", (event) => {
       this._onRecognitionResult(event)
     })
-    this.recognition.addEventListener("end", () => {
-      this._onRecognitionEnd()
-    })
+
     this.recognition.addEventListener("error", (event) => {
       this._onRecognitionError(event)
     })
   }
 
-  _onControlValueChange() {
-    // on end
-    // recordBtn.checked = false;
-  }
-
-  _onRecognitionEnd() {
-
-  }
-
   _onRecognitionResult(event) {
-    let transcript = event.results[this.counter][0].transcript.replace(/^\s+/g, '').toLowerCase();
-
-    console.log("result", transcript);
+    let transcript = event.results[this.commandNum][0].transcript.trim().toLowerCase();
 
     let availableCommandName = Object.keys(this.commandsMap).find(key => this.commandsMap[key] === transcript);
-    if (availableCommandName)
+    if (availableCommandName) {
+      this._showTextMessage("willDo", transcript)
       this.commandHandler(transcript)
-    else
-      alert("Try again!")
+    }
+    else {
+      this._showTextMessage("tryAgain", transcript)
+    }
 
-    this.counter++;
+    this.commandNum++;
+  }
+
+  _showTextMessage(id, transcript) {
+    let userText = this.root.querySelector(`#text`);
+    let response = this.root.querySelector(`#${id}`);
+
+    userText.innerHTML = `It seems you said: "${transcript}"`
+    response.style.visibility = "visible"
+    setTimeout(() => {
+      userText.innerHTML = ""
+      response.style.visibility = "hidden"
+    }, 1000)
   }
 
   _onRecognitionError(event) {
-    alert('Speech recognition error detected: ' + event.error);
+    console.log('Speech recognition error detected: ' + event.error);
   }
 
   startRecognition() {
@@ -67,8 +65,6 @@ export class VoiceControl {
 
   stopRecognition() {
     this.recognition.stop();
-    console.log("stop");
-
   }
 
   initRecognition() {

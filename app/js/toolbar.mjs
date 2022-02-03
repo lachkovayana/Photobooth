@@ -4,8 +4,9 @@ export class Toolbar {
   root;
   app;
   delayInput;
-  //mine
-  voiceControl;
+
+  //new
+  _voiceControl;
   commandsMap = { shot: "снимок", burstShot: "серия снимков", clear: "сбросить карточки" };
 
   constructor(app, rootElement) {
@@ -16,7 +17,7 @@ export class Toolbar {
 
 
     let helperFunc = this.executeCommand.bind(this)
-    this.voiceControl = new VoiceControl(this.root, this.commandsMap, helperFunc)
+    this._voiceControl = new VoiceControl(this.root, this.commandsMap, helperFunc)
   }
 
   bindListeners() {
@@ -24,23 +25,19 @@ export class Toolbar {
     let shotBtn = this.root.querySelector('[name=shot]');
     let burstShotBtn = this.root.querySelector('[name=burst_shot]');
     let clearBtn = this.root.querySelector('[name=clear]');
+    let recordBtn = this.root.querySelector('#voice_control');
 
-    this.root.onsubmit = (event) => this._onFormSubmit(event)
     shotBtn.onclick = () => this._shot()
     burstShotBtn.onclick = () => this._burstShot()
     clearBtn.onclick = () => this._clear()
 
-    let recordBtn = this.root.querySelector('#voice_control');
     recordBtn.onclick = () => {
       if (recordBtn.checked)
-        this.voiceControl.startRecognition()
+        this._voiceControl.startRecognition()
       else
-        this.voiceControl.stopRecognition()
+        this._voiceControl.stopRecognition()
     }
 
-  }
-  _onFormSubmit(event) {
-    event.preventDefault()
   }
 
   executeCommand(command) {
