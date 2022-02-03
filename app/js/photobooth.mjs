@@ -21,11 +21,6 @@ export class Photobooth {
   }
 
   initCamera() {
-    this.width = 400;
-    this.height = 0;
-
-    this.streaming = false;
-
     this.video = this.root.querySelector('#video');
     this.canvas = this.root.querySelector('#canvas');
 
@@ -38,68 +33,47 @@ export class Photobooth {
         console.log("An error occurred: " + err);
       });
 
-    this.video.addEventListener('canplay', (ev) => {
-      if (!this.streaming) {
-        this.height = this.video.videoHeight / (this.video.videoWidth / this.width);
-
-        if (isNaN(this.height)) {
-          this.height = this.width / (4 / 3);
-        }
-
-        this.video.setAttribute('width', this.width);
-        this.video.setAttribute('height', this.height);
-        this.canvas.setAttribute('width', this.width);
-        this.canvas.setAttribute('height', this.height);
-        this.streaming = true;
-      }
-    }, false);
-
-    // this.clear()
   }
 
   clear() {
-    // this.ctx = this.canvas.getContext('2d');
-    // this.ctx.fillStyle = "#AAA";
-    // this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-    // var data = this.canvas.toDataURL('image/png');
-    // this._gallery.clear(data)
     this._gallery.clear()
   }
 
   _shot() {
+    this.ctx = this.canvas.getContext('2d');
+    this.canvas.width = this.video.videoWidth;
+    this.canvas.height = this.video.videoHeight;
+    this.ctx.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
 
+    var data = this.canvas.toDataURL('image/png');
+    this._gallery.addPicture(data)
   }
 
   shot() {
     setTimeout(() => {
-      this.ctx = this.canvas.getContext('2d');
-      if (this.width && this.height) {
-        this.canvas.width = this.width;
-        this.canvas.height = this.height;
-        this.ctx.drawImage(this.video, 0, 0, this.width, this.height);
-
-        var data = this.canvas.toDataURL('image/png');
-
-        this._gallery.addPicture(data)
-
-      }
-
+      this._shot()
     }, this.delay)
   }
 
   burstShot() {
-    this._gallery.addCard()
-    let startTime = Date.now();
-    let intervalId = setInterval(() => {
-      let timePassed = Date.now() - startTime;
-      if (timePassed > 3000)
-        clearInterval(intervalId)
-      this.shot();
-    }, 1000)
+    setTimeout(() => {
+      this._shot();
+
+      let count = 0;
+      let intervalId = setInterval(() => {
+        count++
+        if (count == 2)
+          clearInterval(intervalId)
+
+        this._shot();
+      }, 1000)
+
+    }, this.delay)
+
   }
 
   setDelay(delay) {
+    console.log(delay);
     this.delay = delay;
   }
 }

@@ -1,24 +1,23 @@
 export class Card {
   root;
   container;
-  template;
 
-  constructor(container, template) {
+  constructor(container) {
     this.container = container;
-    this.template = template;
   }
 
   isFull() {
-    //get all empty places into (container/template ?) 
+    return this._getEmptyImageElement() === null
   }
 
-  getEmptyImageElement() {
-
+  _getEmptyImageElement() {
+    return this.container.querySelector(`[data-photo=default]`)
   }
 
   addPicture(data) {
-    // get last empty place
-    // ant into it  photoPlace.setAttribute('src', data);
+    let placeForPhoto = this._getEmptyImageElement()
+    placeForPhoto.setAttribute("src", data);
+    placeForPhoto.setAttribute("data-photo", "user");
   }
 
 }

@@ -16,8 +16,7 @@
 
   <div id="photobooth">
     <div class="camera">
-      <video id="video" width="480">Video stream not available.</video>
-      <!-- <video id="video">Video stream not available.</video> -->
+      <video width="480" id="video">Video stream not available.</video>
       <form onsubmit="return false">
         <input type="checkbox" id="voice_control" class="voice-control">
         <label for="voice_control"></label>
@@ -31,12 +30,14 @@
     <canvas id="canvas"></canvas>
 
     <div class="gallery">
-      <img id="photo" width="240" height="180">
       <template id="template">
         <div class="card">
-          <img width="240" height="180">
-          <img width="240" height="180">
-          <img width="240" height="180">
+          <img width="240" height="180" data-photo="default" src="./assets/yourPhotoHere.png"
+            onerror="this.src='./assets/error.png'">
+          <img width="240" height="180" data-photo="default" src="./assets/yourPhotoHere.png"
+            onerror="this.src='./assets/error.png'">
+          <img width="240" height="180" data-photo="default" src="./assets/yourPhotoHere.png"
+            onerror="this.src='./assets/error.png'">
         </div>
       </template>
     </div>

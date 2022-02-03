@@ -9,19 +9,18 @@ export class Toolbar {
     this.app = app;
     this.root = rootElement;
 
-
-    this.delayInput = this.root.querySelector('[name=delay]');
-    this.shotBtn = this.root.querySelector('[name=shot]');
-    this.burstShotBtn = this.root.querySelector('[name=burst_shot]');
-    this.clearBtn = this.root.querySelector('[name=clear]');
-    this.bindListeners();
-
+    this.clickListeners();
   }
 
-  bindListeners() {
-    this.shotBtn.onclick = () => { this._setDelay(); this._shot() }
-    this.burstShotBtn.onclick = () => { this._setDelay(); this._burstShot() }
-    this.clearBtn.onclick = () => { this._clear() }
+  clickListeners() {
+    this.delayInput = this.root.querySelector('[name=delay]');
+    let shotBtn = this.root.querySelector('[name=shot]');
+    let burstShotBtn = this.root.querySelector('[name=burst_shot]');
+    let clearBtn = this.root.querySelector('[name=clear]');
+
+    shotBtn.onclick = () => { this._setDelay(); this._shot() }
+    burstShotBtn.onclick = () => { this._setDelay(); this._burstShot() }
+    clearBtn.onclick = () => { this._clear() }
   }
 
   _onFormSubmit(event) {
@@ -45,7 +44,7 @@ export class Toolbar {
   }
 
   _setDelay() {
-    this.app.setDelay(parseInt(this.delayInput.value*1000));
+    this.app.setDelay(parseInt(this.delayInput.value * 1000));
   }
 
 }

@@ -6,34 +6,28 @@ export class Gallery {
 
   constructor(rootElement) {
     this.root = rootElement;
-
-    this.addCard()
-
-    this.photo = this.root.querySelector('#photo');
   }
 
   addCard() {
     let cardTemplate = this.root.querySelector("template").content.cloneNode(true);
-    this.card = new Card("lol", cardTemplate)
     this.root.appendChild(cardTemplate)
+
+    this.card = new Card(this.root.lastElementChild)
   }
 
   addPicture(data) {
-    // if (!this.card.isFull()) {
-    //   this.card.addPicture(data)
-    // }
-    // else {
-    //   this.addCard();
-    //   this.card.addPicture(data)
-    // }
-    // this.addCard()
-    this.photo.setAttribute('src', data);
+    (!this.card || this.card.isFull()) && this.addCard()
+
+    this.card.addPicture(data)
   }
+
 
   clear() {
     this.root.querySelectorAll(".card").forEach(element => {
       this.root.removeChild(element)
     });
+
+    this.card = null
   }
 
 
