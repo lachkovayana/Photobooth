@@ -79,6 +79,7 @@ button{
 
 video {
   border: 5px solid #673ab7;
+  transform: rotateY(180deg);
 }
 
 .gallery {
